@@ -1,0 +1,285 @@
+js.file
+// Event constructor with prototype method
+
+class Event {
+  constructor(name, date, category, location, seats) {
+    this.name = name;               // const (won't change)
+    this.date = new Date(date);     // const
+    this.category = category;
+    this.location = location;
+    this.seats = seats;             // let (mutable)
+  }
+}
+
+Event.prototype.checkAvailability = function() {
+  const now = new Date();
+  return this.date > now && this.seats > 0;
+};
+
+// --- 6. Arrays and Methods ---
+// Initial events array
+let events = [
+  new Event("Music Festival", "2025-06-15", "Music", "New York", 50),
+  new Event("Baking Workshop", "2025-07-01", "Workshop", "Chicago", 20),
+  new Event("Community Soccer", "2025-05-30", "Sports", "New York", 0),  // Full event
+  new Event("Jazz Night", "2025-06-10", "Music", "Boston", 10),
+];
+
+// --- Closure for tracking registrations per category ---
+function createRegistrationTracker() {
+  const registrations = {};
+  return function(category) {
+    registrations[category] = (registrations[category] || 0) + 1;
+    return registrations[category];
+  };
+}
+
+const trackRegistration = createRegistrationTracker();
+
+// --- DOM elements ---
+const eventsContainer = document.querySelector("#eventsContainer");
+const categoryFilter = document.querySelector("#categoryFilter");
+const locationFilter = document.querySelector("#locationFilter");
+const searchInput = document.querySelector("#searchInput");
+const registrationForm = document.querySelector("#registrationForm");
+const eventSelect = registrationForm.elements["eventSelect"];
+const formMessage = document.querySelector("#formMessage");
+
+// --- Render event cards ---
+function renderEvents(eventList) {
+  eventsContainer.innerHTML = ""; // Clear
+
+  if(eventList.length === 0){
+    eventsContainer.textContent = "No events match your criteria.";
+    return;
+  }
+
+  eventList.forEach(event => {
+    const card = document.createElement("div");
+    card.className = "event-card";
+
+    card.innerHTML = `
+      <h3>${event.name}</h3>
+      <p><strong>Date:</strong> ${event.date.toDateString()}</p>
+      <p><strong>Category:</strong> ${event.category}</p>
+      <p><strong>Location:</strong> ${event.location}</p>
+      <p><strong>Available Seats:</strong> ${event.seats}</p>
+      <button ${event.seats === 0 ? "disabled" : ""} onclick="registerFromCard('${event.name}')">Register</button>
+    `;
+
+    eventsContainer.appendChild(card);
+  });
+}
+
+// --- Update event select options ---
+function updateEventSelect() {
+  eventSelect.innerHTML = "";
+  // Only show available upcoming events
+  const availableEvents = events.filter(e => e.checkAvailability());
+  availableEvents.forEach(e => {
+    const option = document.createElement("option");
+    option.value = e.name;
+    option.textContent = `${e.name} (${e.date.toDateString()})`;
+    eventSelect.appendChild(option);
+  });
+
+  if (availableEvents.length === 0) {
+    const option = document.createElement("option");
+    option.textContent = "No available events";
+    option.disabled = true;
+    eventSelect.appendChild(option);
+  }
+}
+
+// --- Filter events based on filters ---
+function filterEvents() {
+  const cat = categoryFilter.value;
+  const loc = locationFilter.value.trim().toLowerCase();
+  const search = searchInput.value.trim().toLowerCase();
+
+  let filtered = events.filter(e => e.checkAvailability());
+
+  if (cat !== "all") {
+    filtered = filtered.filter(e => e.category === cat);
+  }
+
+  if (loc) {
+    filtered = filtered.filter(e => e.location.toLowerCase().includes(loc));
+  }
+
+  if (search) {
+    filtered = filtered.filter(e => e.name.toLowerCase().includes(search));
+  }
+
+  return filtered;
+}
+
+// --- Handle form registration ---
+registrationForm.addEventListener("submit", function(event) {
+  event.preventDefault();
+  formMessage.textContent = "";
+
+  try {
+    const formData = new FormData(registrationForm);
+    const name = formData.get("name").trim();
+    const email = formData.get("email").trim();
+    const eventName = formData.get("eventSelect");
+
+    if (!name || !email || !eventName) {
+      throw new Error("Please fill in all fields.");
+    }
+
+    // Find event object
+    const eventObj = events.find(e => e.name === eventName);
+    if (!eventObj) {
+      throw new Error("Selected event not found.");
+    }
+
+    if (!eventObj.checkAvailability()) {
+      throw new Error("Event is full or past.");
+    }
+
+    // Decrement seat count
+    eventObj.seats--;
+
+    // Track registration count for category
+    const totalRegs = trackRegistration(eventObj.category);
+
+    // Simulate sending data with fetch (mock)
+    formMessage.textContent = "Registering...";
+    fakePostRegistration({ name, email, event: eventName })
+      .then(() => {
+        formMessage.textContent = `Thank you, ${name}! You are registered for ${eventName}. Total registrations in category '${eventObj.category}': ${totalRegs}`;
+        updateUI();
+        registrationForm.reset();
+      })
+      .catch(() => {
+        formMessage.textContent = "Registration failed. Please try again.";
+      });
+
+  } catch (err) {
+    formMessage.textContent = err.message;
+  }
+});
+
+// --- Simulated fetch POST ---
+function fakePostRegistration(data) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // 90% success simulation
+      Math.random() < 0.9 ? resolve() : reject();
+    }, 1000);
+  });
+}
+
+// --- Register from card button ---
+window.registerFromCard = function(eventName) {
+  // Select event in form and scroll to form
+  eventSelect.value = eventName;
+  registrationForm.scrollIntoView({ behavior: "smooth" });
+};
+
+// --- Update UI ---
+function updateUI() {
+  const filteredEvents = filterEvents();
+  renderEvents(filteredEvents);
+  updateEventSelect();
+}
+
+// --- Event listeners for filters ---
+categoryFilter.addEventListener("change", updateUI);
+locationFilter.addEventListener("input", updateUI);
+searchInput.addEventListener("keydown", (e) => {
+  // Trigger search on Enter key
+  if (e.key === "Enter") {
+    e.preventDefault();
+    updateUI();
+  }
+});
+
+// --- Initial page load ---
+window.onload = function() {
+  alert("Welcome to the Community Portal");
+  console.log("Welcome to the Community Portal");
+  updateUI();
+};
+
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Community Event Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>Community Event Portal</h1>
+
+  <!-- Filters -->
+  <label for="categoryFilter">Filter by Category:</label>
+  <select id="categoryFilter">
+    <option value="all">All</option>
+    <option value="Music">Music</option>
+    <option value="Workshop">Workshop</option>
+    <option value="Sports">Sports</option>
+  </select>
+
+  <label for="locationFilter">Filter by Location:</label>
+  <input type="text" id="locationFilter" placeholder="Enter location" />
+
+  <br /><br />
+
+  <!-- Search -->
+  <input type="text" id="searchInput" placeholder="Search events by name..." />
+
+  <br /><br />
+
+  <!-- Event List -->
+  <div id="eventsContainer"></div>
+
+  <br />
+
+  <!-- Registration Form -->
+  <form id="registrationForm">
+    <h3>Register for an Event</h3>
+    <label>Name: <input type="text" name="name" required /></label><br /><br />
+    <label>Email: <input type="email" name="email" required /></label><br /><br />
+    <label>Event:
+      <select name="eventSelect" required></select>
+    </label><br /><br />
+    <button type="submit" id="registerBtn">Register</button>
+    <div id="formMessage"></div>
+  </form>
+
+  <script src="main.js"></script>
+</body>
+</html>
+ 
+css
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+.event-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+#formMessage {
+  margin-top: 10px;
+  font-weight: bold;
+}
