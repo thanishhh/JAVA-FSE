@@ -1,0 +1,706 @@
+java.file
+1.Hello World Program
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+2. Simple Calculator
+import java.util.Scanner;
+
+public class SimpleCalculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter first number: ");
+        double num1 = sc.nextDouble();
+        System.out.print("Enter second number: ");
+        double num2 = sc.nextDouble();
+
+        System.out.println("Choose operation: +, -, *, /");
+        char op = sc.next().charAt(0);
+
+        double result;
+        switch(op) {
+            case '+': result = num1 + num2; break;
+            case '-': result = num1 - num2; break;
+            case '*': result = num1 * num2; break;
+            case '/': 
+                if (num2 == 0) {
+                    System.out.println("Error: Division by zero");
+                    return;
+                }
+                result = num1 / num2; break;
+            default:
+                System.out.println("Invalid operation");
+                return;
+        }
+        System.out.println("Result: " + result);
+    }
+}
+3. Even or Odd Checker
+import java.util.Scanner;
+
+public class EvenOddChecker {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter an integer: ");
+        int num = sc.nextInt();
+
+        if (num % 2 == 0)
+            System.out.println(num + " is even.");
+        else
+            System.out.println(num + " is odd.");
+    }
+}
+4. Leap Year Checker
+import java.util.Scanner;
+
+public class LeapYearChecker {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter year: ");
+        int year = sc.nextInt();
+
+        if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+            System.out.println(year + " is a leap year.");
+        else
+            System.out.println(year + " is not a leap year.");
+    }
+}
+5. Multiplication Table
+import java.util.Scanner;
+
+public class MultiplicationTable {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number: ");
+        int num = sc.nextInt();
+
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(num + " x " + i + " = " + (num * i));
+        }
+    }
+}
+6. Data Type Demonstration
+public class DataTypesDemo {
+    public static void main(String[] args) {
+        int i = 10;
+        float f = 10.5f;
+        double d = 20.99;
+        char c = 'A';
+        boolean b = true;
+
+        System.out.println("int: " + i);
+        System.out.println("float: " + f);
+        System.out.println("double: " + d);
+        System.out.println("char: " + c);
+        System.out.println("boolean: " + b);
+    }
+}
+7. Type Casting Example
+public class TypeCastingExample {
+    public static void main(String[] args) {
+        double d = 9.78;
+        int i = (int)d;  // double to int
+        System.out.println("Double to int: " + i);
+
+        int x = 100;
+        double y = x;    // int to double (implicit casting)
+        System.out.println("Int to double: " + y);
+    }
+}
+8. Operator Precedence
+public class OperatorPrecedence {
+    public static void main(String[] args) {
+        int result = 10 + 5 * 2; // multiplication first, then addition
+        System.out.println("Result: " + result); // 10 + (5*2) = 20
+        // Explanation: * has higher precedence than +
+    }
+}
+9. Grade Calculator
+import java.util.Scanner;
+
+public class GradeCalculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter marks (0-100): ");
+        int marks = sc.nextInt();
+        char grade;
+
+        if (marks >= 90 && marks <= 100)
+            grade = 'A';
+        else if (marks >= 80)
+            grade = 'B';
+        else if (marks >= 70)
+            grade = 'C';
+        else if (marks >= 60)
+            grade = 'D';
+        else
+            grade = 'F';
+
+        System.out.println("Grade: " + grade);
+    }
+}
+10. Number Guessing Game
+import java.util.Scanner;
+import java.util.Random;
+
+public class NumberGuessingGame {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Random rand = new Random();
+        int number = rand.nextInt(100) + 1;
+        int guess = 0;
+
+        System.out.println("Guess the number (1-100):");
+        while (guess != number) {
+            guess = sc.nextInt();
+            if (guess > number)
+                System.out.println("Too high, try again:");
+            else if (guess < number)
+                System.out.println("Too low, try again:");
+            else
+                System.out.println("Correct! You guessed the number.");
+        }
+    }
+}
+11. Factorial Calculator
+import java.util.Scanner;
+
+public class FactorialCalculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a non-negative integer: ");
+        int n = sc.nextInt();
+        long fact = 1;
+
+        for (int i = 2; i <= n; i++) {
+            fact *= i;
+        }
+
+        System.out.println("Factorial of " + n + " is " + fact);
+    }
+}
+12. Method Overloading
+public class MethodOverloading {
+    public static int add(int a, int b) {
+        return a + b;
+    }
+
+    public static double add(double a, double b) {
+        return a + b;
+    }
+
+    public static int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(add(2, 3));         // 5
+        System.out.println(add(2.5, 3.5));     // 6.0
+        System.out.println(add(1, 2, 3));      // 6
+    }
+}
+13. Recursive Fibonacci
+import java.util.Scanner;
+
+public class RecursiveFibonacci {
+    public static int fibonacci(int n) {
+        if (n <= 1) return n;
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a positive integer n: ");
+        int n = sc.nextInt();
+        System.out.println("Fibonacci number at position " + n + " is " + fibonacci(n));
+    }
+}
+14. Array Sum and Average
+import java.util.Scanner;
+
+public class ArraySumAverage {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of elements: ");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+        System.out.println("Enter elements:");
+        for(int i=0; i<n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        int sum = 0;
+        for(int num : arr) {
+            sum += num;
+        }
+
+        double avg = (double) sum / n;
+        System.out.println("Sum: " + sum);
+        System.out.println("Average: " + avg);
+    }
+}
+15. String Reversal
+import java.util.Scanner;
+
+public class StringReversal {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String input = sc.nextLine();
+
+        StringBuilder reversed = new StringBuilder(input).reverse();
+        System.out.println("Reversed string: " + reversed.toString());
+    }
+}
+16. Palindrome Checker
+import java.util.Scanner;
+
+public class PalindromeChecker {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String input = sc.nextLine();
+
+        String filtered = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        String reversed = new StringBuilder(filtered).reverse().toString();
+
+        if (filtered.equals(reversed))
+            System.out.println("The string is a palindrome.");
+        else
+            System.out.println("The string is not a palindrome.");
+    }
+}
+17. Class and Object Creation
+class Car {
+    String make;
+    String model;
+    int year;
+
+    Car(String make, String model, int year){
+        this.make = make;
+        this.model = model;
+        this.year = year;
+    }
+
+    void displayDetails(){
+        System.out.println("Car: " + make + " " + model + " (" + year + ")");
+    }
+}
+
+public class CarDemo {
+    public static void main(String[] args){
+        Car car1 = new Car("Toyota", "Corolla", 2020);
+        Car car2 = new Car("Honda", "Civic", 2021);
+
+        car1.displayDetails();
+        car2.displayDetails();
+    }
+}
+18. Constructor Overloading
+class Rectangle {
+    int length, width;
+
+    Rectangle() {
+        length = 0;
+        width = 0;
+    }
+
+    Rectangle(int l, int w) {
+        length = l;
+        width = w;
+    }
+
+    int area() {
+        return length * width;
+    }
+}
+
+public class ConstructorOverloadingDemo {
+    public static void main(String[] args) {
+        Rectangle r1 = new Rectangle();
+        Rectangle r2 = new Rectangle(5, 10);
+
+        System.out.println("Area of r1: " + r1.area());
+        System.out.println("Area of r2: " + r2.area());
+    }
+}
+19. Inheritance Example
+class Animal {
+    void sound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+public class InheritanceDemo {
+    public static void main(String[] args) {
+        Dog dog = new Dog();
+        dog.sound();
+    }
+}
+20. Method Overriding
+class Parent {
+    void message() {
+        System.out.println("Parent class message");
+    }
+}
+
+class Child extends Parent {
+    @Override
+    void message() {
+        System.out.println("Child class message");
+    }
+}
+
+public class MethodOverridingDemo {
+    public static void main(String[] args) {
+        Parent p = new Parent();
+        p.message();
+
+        Child c = new Child();
+        c.message();
+    }
+}
+21. Abstract Class Example
+abstract class Shape {
+    abstract void draw();
+}
+
+class Circle extends Shape {
+    void draw() {
+        System.out.println("Drawing Circle");
+    }
+}
+
+public class AbstractClassDemo {
+    public static void main(String[] args) {
+        Circle c = new Circle();
+        c.draw();
+    }
+}
+22. Interface Example
+interface Printable {
+    void print();
+}
+
+class Document implements Printable {
+    public void print() {
+        System.out.println("Printing document...");
+    }
+}
+
+public class InterfaceDemo {
+    public static void main(String[] args) {
+        Document doc = new Document();
+        doc.print();
+    }
+}
+23. Exception Handling (try-catch)
+import java.util.Scanner;
+
+public class ExceptionHandlingDemo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        try {
+            System.out.print("Enter a number: ");
+            int num = sc.nextInt();
+            System.out.println("You entered: " + num);
+        } catch (Exception e) {
+            System.out.println("Invalid input. Please enter an integer.");
+        }
+    }
+}
+24. Finally Block
+public class FinallyDemo {
+    public static void main(String[] args) {
+        try {
+            int division = 10 / 0;
+        } catch (ArithmeticException e) {
+            System.out.println("Arithmetic Exception caught.");
+        } finally {
+            System.out.println("This block always executes.");
+        }
+    }
+}
+25. File Reading
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class FileReadingDemo {
+    public static void main(String[] args) {
+        try (BufferedReader br = new BufferedReader(new FileReader("sample.txt"))) {
+            String line;
+            while((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch(IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+}
+26. File Writing
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileWritingDemo {
+    public static void main(String[] args) {
+        try (FileWriter fw = new FileWriter("output.txt")) {
+            fw.write("Hello, file writing in Java!");
+            System.out.println("Writing completed.");
+        } catch (IOException e) {
+            System.out.println("Error writing file: " + e.getMessage());
+        }
+    }
+}
+27. Array Sorting
+import java.util.Arrays;
+
+public class ArraySortingDemo {
+    public static void main(String[] args) {
+        int[] arr = {5, 2, 9, 1, 3};
+        Arrays.sort(arr);
+        System.out.println("Sorted array: " + Arrays.toString(arr));
+    }
+}
+28. Find Largest Element in Array
+public class LargestElementDemo {
+    public static void main(String[] args) {
+        int[] arr = {5, 7, 2, 9, 3};
+        int largest = arr[0];
+
+        for (int num : arr) {
+            if (num > largest)
+                largest = num;
+        }
+        System.out.println("Largest element is " + largest);
+    }
+}
+29. 2D Array Demo
+public class TwoDArrayDemo {
+    public static void main(String[] args) {
+        int[][] matrix = {
+            {1, 2, 3},
+            {4, 5, 6}
+        };
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j=0; j < matrix[i].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+30. String Methods Demo
+public class StringMethodsDemo {
+    public static void main(String[] args) {
+        String str = "Hello World";
+
+        System.out.println("Length: " + str.length());
+        System.out.println("Uppercase: " + str.toUpperCase());
+        System.out.println("Substring (0,5): " + str.substring(0, 5));
+        System.out.println("Contains 'World'? " + str.contains("World"));
+        System.out.println("Replace 'World' with 'Java': " + str.replace("World", "Java"));
+    }
+}
+31. Wrapper Classes Demo
+public class WrapperClassesDemo {
+    public static void main(String[] args) {
+        int i = 10;
+        Integer obj = Integer.valueOf(i);  // Boxing
+        int num = obj.intValue();          // Unboxing
+
+        System.out.println("Integer object: " + obj);
+        System.out.println("Primitive int: " + num);
+    }
+}
+32. StringBuilder Demo
+public class StringBuilderDemo {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder("Hello");
+        sb.append(" World");
+        System.out.println(sb.toString());
+    }
+}
+33. LinkedList Demo
+import java.util.LinkedList;
+
+public class LinkedListDemo {
+    public static void main(String[] args) {
+        LinkedList<String> list = new LinkedList<>();
+        list.add("Apple");
+        list.add("Banana");
+        list.add("Cherry");
+
+        System.out.println("LinkedList: " + list);
+        list.removeFirst();
+        System.out.println("After removing first: " + list);
+    }
+}
+34. HashMap Demo
+import java.util.HashMap;
+
+public class HashMapDemo {
+    public static void main(String[] args) {
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("One", 1);
+        map.put("Two", 2);
+
+        System.out.println("Value for 'One': " + map.get("One"));
+        System.out.println("Keys: " + map.keySet());
+        System.out.println("Values: " + map.values());
+    }
+}
+35. Generics Demo
+class Box<T> {
+    private T value;
+
+    public void setValue(T value) { this.value = value; }
+    public T getValue() { return value; }
+}
+
+public class GenericsDemo {
+    public static void main(String[] args) {
+        Box<Integer> intBox = new Box<>();
+        intBox.setValue(123);
+        System.out.println("Integer Box: " + intBox.getValue());
+
+        Box<String> strBox = new Box<>();
+        strBox.setValue("Hello");
+        System.out.println("String Box: " + strBox.getValue());
+    }
+}
+36. Lambda Expression Demo
+import java.util.Arrays;
+import java.util.List;
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        List<String> list = Arrays.asList("apple", "banana", "cherry");
+
+        list.forEach(item -> System.out.println(item.toUpperCase()));
+    }
+}
+37. Thread Demo
+class MyThread extends Thread {
+    public void run() {
+        for(int i=0; i<5; i++) {
+            System.out.println("Thread running: " + i);
+        }
+    }
+}
+
+public class ThreadDemo {
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        t1.start();
+    }
+}
+38. Synchronization Demo
+class Counter {
+    private int count = 0;
+
+    public synchronized void increment() {
+        count++;
+    }
+
+    public int getCount() {
+        return count;
+    }
+}
+
+public class SyncDemo {
+    public static void main(String[] args) throws InterruptedException {
+        Counter c = new Counter();
+
+        Thread t1 = new Thread(() -> {
+            for (int i=0; i<1000; i++) c.increment();
+        });
+        Thread t2 = new Thread(() -> {
+            for (int i=0; i<1000; i++) c.increment();
+        });
+
+        t1.start();
+        t2.start();
+
+        t1.join();
+        t2.join();
+
+        System.out.println("Count is: " + c.getCount());  // Should be 2000
+    }
+}
+39. Serialization Demo
+import java.io.*;
+
+class Person implements Serializable {
+    String name;
+    int age;
+
+    Person(String n, int a) {
+        name = n;
+        age = a;
+    }
+}
+
+public class SerializationDemo {
+    public static void main(String[] args) {
+        Person p = new Person("John", 30);
+
+        // Serialization
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("person.ser"))) {
+            oos.writeObject(p);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Deserialization
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("person.ser"))) {
+            Person p2 = (Person) ois.readObject();
+            System.out.println("Name: " + p2.name + ", Age: " + p2.age);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+40. Enum Demo
+enum Day {
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+}
+
+public class EnumDemo {
+    public static void main(String[] args) {
+        Day today = Day.WEDNESDAY;
+        System.out.println("Today is " + today);
+    }
+}
+41. Java Collections Framework (ArrayList Demo)
+import java.util.ArrayList;
+
+public class ArrayListDemo {
+    public static void main(String[] args) {
+        ArrayList<String> fruits = new ArrayList<>();
+        fruits.add("Apple");
+        fruits.add("Banana");
+        fruits.add("Orange");
+
+        System.out.println("Fruits: " + fruits);
+
+        fruits.remove("Banana");
+        System.out.println("After removal: " + fruits);
+    }
+}
+
+
+
+
+
+
