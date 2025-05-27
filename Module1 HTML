@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Local Community Event Portal</title>
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    /* Internal CSS */
+    #welcomeBanner {
+      background-color: #007BFF;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    .highlight {
+      font-weight: bold;
+      color: green;
+    }
+    .event-image {
+      border: 2px solid #ccc;
+      width: 100%;
+    }
+    table img {
+      height: 150px;
+      object-fit: cover;
+    }
+    output {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+    <a class="navbar-brand" href="#">Community Portal</a>
+    <div class="navbar-nav">
+      <a class="nav-link" href="#home">Home</a>
+      <a class="nav-link" href="#events">Events</a>
+      <a class="nav-link" href="#contact">Contact</a>
+      <a class="nav-link" href="help.html" target="_blank">Help</a>
+    </div>
+  </nav>
+
+  <!-- Welcome Banner -->
+  <div id="welcomeBanner">
+    Welcome, user! <span style="color:red; font-weight:bold;">Special Offer Today!</span>
+  </div>
+
+  <!-- Home Section -->
+  <section id="home" class="container mt-4">
+    <h2>Home</h2>
+    <p class="highlight">Welcome to our local event portal where community comes together!</p>
+  </section>
+
+  <!-- Events Section -->
+  <section id="events" class="container mt-5">
+    <h2>Past Events Gallery</h2>
+    <table class="table table-bordered text-center">
+      <tr>
+        <td><img src="https://via.placeholder.com/200" alt="Event 1" title="Music Fest" class="event-image"></td>
+        <td><img src="https://via.placeholder.com/200" alt="Event 2" title="Food Carnival" class="event-image"></td>
+        <td><img src="https://via.placeholder.com/200" alt="Event 3" title="Art Show" class="event-image"></td>
+      </tr>
+      <tr>
+        <td><img src="https://via.placeholder.com/200" alt="Event 4" title="Dance Gala" class="event-image"></td>
+        <td><img src="https://via.placeholder.com/200" alt="Event 5" title="Tech Expo" class="event-image"></td>
+        <td><img src="https://via.placeholder.com/200" alt="Event 6" title="Book Fair" class="event-image" ondblclick="enlargeImage(this)"></td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- Event Registration Form -->
+  <section class="container mt-5">
+    <h2>Register for Upcoming Events</h2>
+    <form onsubmit="handleSubmit(event)">
+      <div class="mb-3">
+        <label>Name:</label>
+        <input type="text" class="form-control" required autofocus placeholder="Your name">
+      </div>
+      <div class="mb-3">
+        <label>Email:</label>
+        <input type="email" class="form-control" required placeholder="your@email.com">
+      </div>
+      <div class="mb-3">
+        <label>Phone:</label>
+        <input type="text" class="form-control" id="phone" onblur="validatePhone()" placeholder="1234567890">
+      </div>
+      <div class="mb-3">
+        <label>Date:</label>
+        <input type="date" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label>Event Type:</label>
+        <select class="form-select" id="eventType" onchange="showFee(); savePreference()">
+          <option>Music</option>
+          <option>Food</option>
+          <option>Tech</option>
+          <option>Art</option>
+        </select>
+        <small id="feeDisplay" class="text-info"></small>
+      </div>
+      <div class="mb-3">
+        <label>Message:</label>
+        <textarea class="form-control" id="feedback" onkeydown="countChars()" rows="3" placeholder="Any message..."></textarea>
+        <small id="charCount" class="text-muted"></small>
+      </div>
+      <button type="submit" class="btn btn-primary" onclick="confirmSubmit()">Submit</button>
+      <output id="confirmation"></output>
+    </form>
+  </section>
+
+  <!-- Video Promo -->
+  <section class="container mt-5">
+    <h2>Event Promo</h2>
+    <video width="100%" controls oncanplay="showReadyMessage()">
+      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div id="videoMsg" class="mt-2 text-success"></div>
+  </section>
+
+  <!-- Geolocation -->
+  <section class="container mt-5">
+    <h2>Find Nearby Events</h2>
+    <button class="btn btn-success" onclick="getLocation()">Find My Location</button>
+    <p id="locationResult"></p>
+  </section>
+
+  <!-- Preferences -->
+  <section class="container mt-5">
+    <button class="btn btn-warning" onclick="clearPreferences()">Clear Preferences</button>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center p-3 mt-5">
+    Local Community Portal &copy; 2025
+  </footer>
+
+  <!-- Script -->
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('confirmation').textContent = "Thank you! Your registration has been submitted.";
+    }
+
+    function confirmSubmit() {
+      alert("Form Submitted!");
+    }
+
+    function enlargeImage(img) {
+      img.style.transform = "scale(1.2)";
+      img.style.transition = "0.5s";
+    }
+
+    function validatePhone() {
+      const phone = document.getElementById("phone").value;
+      if (!/^\d{10}$/.test(phone)) {
+        alert("Invalid phone number. Enter 10 digits.");
+      }
+    }
+
+    function showFee() {
+      const fee = {
+        Music: "$10",
+        Food: "$5",
+        Tech: "$15",
+        Art: "$8"
+      };
+      const selected = document.getElementById("eventType").value;
+      document.getElementById("feeDisplay").textContent = "Fee: " + fee[selected];
+    }
+
+    function countChars() {
+      const len = document.getElementById("feedback").value.length;
+      document.getElementById("charCount").textContent = `${len} characters`;
+    }
+
+    function showReadyMessage() {
+      document.getElementById("videoMsg").textContent = "Video ready to play!";
+    }
+
+    window.onbeforeunload = function () {
+      return "Are you sure you want to leave without submitting the form?";
+    };
+
+    function savePreference() {
+      const selected = document.getElementById("eventType").value;
+      localStorage.setItem("preferredEvent", selected);
+    }
+
+    window.onload = function () {
+      const saved = localStorage.getItem("preferredEvent");
+      if (saved) {
+        document.getElementById("eventType").value = saved;
+        showFee();
+      }
+    };
+
+    function clearPreferences() {
+      localStorage.clear();
+      sessionStorage.clear();
+      alert("Preferences cleared!");
+    }
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError, {
+          enableHighAccuracy: true,
+          timeout: 10000
+        });
+      } else {
+        document.getElementById("locationResult").textContent = "Geolocation not supported.";
+      }
+    }
+
+    function showPosition(position) {
+      document.getElementById("locationResult").textContent =
+        `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`;
+    }
+
+    function showError(error) {
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          alert("User denied location access.");
+          break;
+        case error.TIMEOUT:
+          alert("Location request timed out.");
+          break;
+        default:
+          alert("Unknown error.");
+      }
+    }
+  </script>
+
+</body>
+</html>
