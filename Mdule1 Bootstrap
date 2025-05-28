@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap 5 Exercises</title>
+  <!-- Exercise 1.1: Link Bootstrap 5 via CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Exercise 2.2: Include Bootstrap's JavaScript Plugins -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Exercise 17.1: Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <style>
+    body { padding-bottom: 100px; } /* For fixed footer */
+    .pricing-card { max-width: 300px; }
+
+    /* Exercise 3 */
+    .exercise-3 .col { padding: 1rem; background-color: #e9ecef; margin-bottom: 1rem; }
+
+    /* Exercise 4 */
+    .exercise-4 .col-md-3, .exercise-4 .col-md-9, .exercise-4 .col-sm-3 { padding: 1rem; background-color: #dee2e6; margin-bottom: 1rem; }
+
+    /* Exercise 5 */
+    .exercise-5 .row > div { padding: 1rem; background-color: #f8f9fa; border: 1px solid #dee2e6; margin-bottom: 1rem; }
+
+    /* Exercise 6 */
+    .exercise-6 nav, .exercise-6 .card { margin-bottom: 1rem; }
+
+    /* Exercise 7 */
+    .exercise-7 { padding: 1rem; background-color: #fff; }
+
+    /* Exercise 8 */
+    .exercise-8 { background-color: #f1f3f5; padding: 1rem; margin-bottom: 1rem; }
+
+    /* Exercise 9 */
+    .exercise-9 { margin-bottom: 1rem; }
+
+    /* Exercise 10 */
+    .exercise-10 nav, .exercise-10 ul { margin-bottom: 1rem; }
+
+    /* Exercise 11 */
+    .exercise-11 { margin-bottom: 1rem; }
+
+    /* Exercise 12 */
+    .exercise-12 { background-color: #e9ecef; margin-bottom: 1rem; padding: 1rem; }
+
+    /* Exercise 13 */
+    .exercise-13 > div { margin-bottom: 1rem; }
+
+    /* Exercise 14 */
+    .exercise-14 > div { margin-bottom: 1rem; padding: 1rem; }
+
+    /* Exercise 15 */
+    .exercise-15 img, .exercise-15 .card { margin-bottom: 1rem; }
+
+    /* Exercise 16 */
+    .exercise-16 { margin-bottom: 1rem; }
+
+    /* Exercise 17 */
+    .exercise-17 button { margin-bottom: 1rem; }
+
+    /* Exercise 18 */
+    .exercise-18 { margin-bottom: 1rem; }
+  </style>
+</head>
+<body class="bg-light">
+
+<!-- Exercise 3.1 & 3.2: Responsive Grid Layout -->
+<div class="container my-5 exercise-3">
+  <div class="row">
+    <div class="col col-12 col-sm-6 col-md-4">Column 1</div>
+    <div class="col col-12 col-sm-6 col-md-4">Column 2</div>
+    <div class="col col-12 col-sm-12 col-md-4">Column 3</div>
+  </div>
+</div>
+
+<!-- Exercise 4.1 & 4.2: Column Layouts and Grid Classes -->
+<div class="container exercise-4">
+  <div class="row">
+    <div class="col-md-3 bg-secondary text-white">Sidebar</div>
+    <div class="col-md-9">Content Area</div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">1</div>
+    <div class="col-sm-3">2</div>
+    <div class="col-sm-3">3</div>
+    <div class="col-sm-3">4</div>
+  </div>
+</div>
+
+<!-- Exercise 5.1 & 5.2: Alignment and Reordering -->
+<div class="container exercise-5">
+  <div class="d-flex justify-content-center align-items-center bg-light" style="height: 100px;">
+    <p>Centered Content</p>
+  </div>
+  <div class="row">
+    <div class="col-md-6 order-md-2">Second on medium+</div>
+    <div class="col-md-6 order-md-1">First on medium+</div>
+  </div>
+</div>
+
+<!-- Exercise 6.1 & 6.2: Flexbox Utilities -->
+<div class="container exercise-6">
+  <nav class="d-flex flex-column flex-md-row bg-dark text-white p-2">
+    <a class="nav-link text-white" href="#">Home</a>
+    <a class="nav-link text-white" href="#">About</a>
+  </nav>
+  <div class="card d-flex flex-row justify-content-between align-items-center p-3">
+    <span>Info</span>
+    <button class="btn btn-primary">Action</button>
+  </div>
+</div>
+
+<!-- Exercise 7.1 & 7.2: Typography -->
+<div class="container exercise-7">
+  <h1 class="display-1">Heading</h1>
+  <p class="lead text-muted fw-bold">Lead paragraph</p>
+  <p class="text-uppercase">uppercase</p>
+  <p class="text-lowercase">LOWERCASE</p>
+  <p class="text-capitalize">hello world</p>
+</div>
+
+<!-- Exercise 8.1 & 8.2: Forms -->
+<div class="container exercise-8">
+  <form>
+    <div class="mb-3">
+      <input type="text" class="form-control" placeholder="Name">
+    </div>
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input">
+      <label class="form-check-label">Accept</label>
+    </div>
+    <div class="input-group mt-2">
+      <span class="input-group-text">@</span>
+      <input type="text" class="form-control" placeholder="Username">
+    </div>
+  </form>
+  <form class="mt-4">
+    <div class="form-floating mb-3">
+      <input type="email" class="form-control" id="email" placeholder="name@example.com">
+      <label for="email">Email address</label>
+    </div>
+  </form>
+</div>
+
+<!-- Exercise 9.1 & 9.2: Buttons -->
+<div class="container exercise-9">
+  <button class="btn btn-primary">Primary</button>
+  <button class="btn btn-outline-secondary">Outline</button>
+  <div class="btn-group mt-2" role="group">
+    <input type="checkbox" class="btn-check" id="btn1">
+    <label class="btn btn-outline-primary" for="btn1">Toggle</label>
+  </div>
+</div>
+
+<!-- Exercise 10.1 & 10.2: Navbar and Nav -->
+<div class="container exercise-10">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Logo</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+        </ul>
+        <form class="d-flex ms-auto">
+          <input class="form-control" type="search" placeholder="Search">
+        </form>
+      </div>
+    </div>
+  </nav>
+  <ul class="nav nav-tabs">
+    <li class="nav-item"><a class="nav-link active" href="#">Tab 1</a></li>
+  </ul>
+  <ul class="nav nav-pills mt-1">
+    <li class="nav-item"><a class="nav-link active" href="#">Pill 1</a></li>
+  </ul>
+</div>
+
+<!-- Exercise 11.1 & 11.2: Cards and Media -->
+<div class="container exercise-11">
+  <div class="card pricing-card">
+    <img src="https://via.placeholder.com/150" class="card-img-top">
+    <div class="card-body">
+      <h5 class="card-title">Name</h5>
+      <p class="card-text">Description</p>
+    </div>
+  </div>
+  <div class="d-flex mt-4">
+    <img src="https://via.placeholder.com/64" class="me-3">
+    <div>
+      <h5>Media heading</h5>
+      <p>Media content...</p>
+    </div>
+  </div>
+</div>
+
+<!-- Exercise 12.1 & 12.2: Spacing -->
+<div class="container exercise-12">
+  <div class="row py-5">
+    <div class="col">Basic Plan</div>
+    <div class="col">Pro Plan</div>
+  </div>
+</div>
+
+<!-- Exercise 13.1 & 13.2: Colors and Backgrounds -->
+<div class="container exercise-13">
+  <div class="bg-primary text-white p-3">Primary Background</div>
+  <div class="bg-gradient bg-dark text-white p-3">Dark Gradient</div>
+</div>
+
+<!-- Exercise 14.1 & 14.2: Display & Visibility -->
+<div class="container exercise-14">
+  <div class="d-none d-md-block">Visible on md and up</div>
+  <div class="d-none d-md-block bg-info p-2">Sidebar visible on tablets and up</div>
+</div>
+
+<!-- Exercise 15.1 & 15.2: Borders and Shadows -->
+<div class="container exercise-15">
+  <img src="https://via.placeholder.com/100" class="border border-primary border-3 rounded-circle">
+  <div class="card shadow shadow-lg rounded-pill mt-3 p-3">Styled Card</div>
+</div>
+
+<!-- Exercise 16.1 & 16.2: Positioning -->
+<div class="container exercise-16">
+  <div class="position-relative mt-3">
+    <img src="https://via.placeholder.com/150">
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">New</span>
+  </div>
+</div>
+<footer class="bg-dark text-white text-center position-fixed bottom-0 w-100">Fixed Footer</footer>
+
+<!-- Exercise 17.2: Icons -->
+<div class="container exercise-17">
+  <button class="btn btn-outline-primary"><i class="bi bi-house"></i></button>
+</div>
+
+<!-- Exercise 18.1 & 18.2: JavaScript Plugins -->
+<div class="container exercise-18">
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Open Modal</button>
+  <div class="modal fade" id="exampleModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal Title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">Modal Content</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion mt-3" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+          Accordion Item #1
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show">
+        <div class="accordion-body">Content 1</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Exercise 19.1 & 19.2: Sass Customization (requires external setup) -->
+
+</body>
+</html>
